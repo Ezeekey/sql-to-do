@@ -3,7 +3,7 @@ const pg = require('pg');
 
 // Initializing a pool to reach database.
 const Pool = pg.Pool;
-const pool = Pool({
+const pool = new Pool({
     database: 'weekend-to-do-app',
     host: 'localhost',
     port: 5432,
