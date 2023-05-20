@@ -9,7 +9,7 @@ $(() => {
     // Complete task button handler.
     $('#taskTable').on('click', '.doItButton', doIt);
     // Delete task button handler.
-    $('#taskTable').on('click', '.deleteItem', delete);
+    $('#taskTable').on('click', '.deleteItem', removeTask);
     // END Click handlers
 
     // Preperations for page load.
@@ -95,6 +95,20 @@ function doIt(event) {
     // Calling server to PUT to database.
     $.ajax({
         method: 'PUT',
+        url: '/task/' + $(event.target).closest('tr').data('id')
+    }).then(response => {
+        // Display new table to show modifications.
+        callDisplay();
+    }).catch(err => {
+        alert('Error doing it!');
+    })
+}
+
+
+function removeTask(event) {
+    // Calling server to DELETE from database.
+    $.ajax({
+        method: 'DELETE',
         url: '/task/' + $(event.target).closest('tr').data('id')
     }).then(response => {
         // Display new table to show modifications.
