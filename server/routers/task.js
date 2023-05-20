@@ -13,12 +13,21 @@ const moment = require('moment');
 
 // GET request for sending tasks back to user to display.
 router.get('/', (req, res) => {
-    // Asking database to give a list of task objects {id, name, complete} to client.
-    pool.query('SELECT * FROM "tasks" ORDER BY "done"').then(response => res.send(response.rows))
-        .catch(err => {
-            console.log('Task router GET request error!', err);
-            res.sendStatus(500);
-        })
+    // Asking database to give a list of task objects {id, name, done, timestamp} to client.
+    pool.query('SELECT * FROM "tasks" ORDER BY "done"').then(response => {
+        // Turning dates into something human readable.
+        for (let task of response.rows) {
+            task.timestamp = moment(task.timestamp).format('MMMM Do YYYY, h:mm:ss a');
+            // Turn an invalid date into a not done.
+            if (task.timestamp === 'Invalid date'){
+                task.timestamp = 'Not done';
+            }
+        }
+        res.send(response.rows)
+    }).catch(err => {
+        console.log('Task router GET request error!', err);
+        res.sendStatus(500);
+    })
 });
 
 // POST request for adding new tasks.
@@ -43,7 +52,7 @@ router.post('/', (req, res) => {        // req.body {name}
 // PUT request for finishing a task. Changes done to true, and changes timestamp to current date for unfinished tasks only.
 router.put('/:id', (req, res) => {
     // Catch if id param is a word and not a number.
-    if(validator.checkBadNumbers(req.params.id)){
+    if (validator.checkBadNumbers(req.params.id)) {
         console.log('Client sent bad id to PUT handler');
         res.sendStatus(400);
         return;
@@ -71,7 +80,7 @@ router.put('/:id', (req, res) => {
 // DELETE handler for removing single tasks from the database.
 router.delete('/:id', (req, res) => {
     // Validate for an id that is not a number.
-    if(validator.checkBadNumbers(req.params.id)){
+    if (validator.checkBadNumbers(req.params.id)) {
         console.log('Client sent bad id to DELETE handler');
         res.sendStatus(400);
         return;
