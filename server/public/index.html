@@ -1,0 +1,46 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUDdy to-do list app.</title>
+    <link rel="stylesheet" href="style/style.css">
+
+    <script src="./vendors/jquery.js"></script>
+    <script src="./vendors/validator.js"></script>
+    <script src="./scripts/client.js"></script>
+</head>
+
+<body>
+    <main>
+        <header>
+            <h1>A CRUDdy to-do list app</h1>
+        </header>
+        <section>
+            <label name="name">New task name</label>
+            <input type="text" name="name" placeholder="Enter name here" id="nameIn">
+            <button id="addTask">Add task</button>
+        </section>
+        <section>
+            <table>
+                <thead>
+                    <tr>
+                        <th>✔️?</th>
+                        <th>Task name</th>
+                        <th>Status</th>
+                        <th>Complete?</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody id="taskTable">
+
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p id="importantQuote">Insert cool quote here</p>
+    </footer>
+</body>
+
+</html
