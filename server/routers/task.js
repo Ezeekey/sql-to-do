@@ -68,6 +68,25 @@ router.put('/:id', (req, res) => {
         });
 });
 
+// DELETE handler for removing single tasks from the database.
+router.delete('/:id', (req, res) => {
+    // Validate for an id that is not a number.
+    if(validator.checkBadNumbers(req.params.id)){
+        console.log('Client sent bad id to DELETE handler');
+        res.sendStatus(400);
+        return;
+    }
+
+    // All good by this point.
+    pool.query('DELETE FROM "tasks" WHERE "id" = $1 RETURNING *;', [req.params.id]).then(response => {
+        console.log('Client has deleted from tasks table: ', response.rows);
+        res.sendStatus(204);
+    }).catch(err => {
+        console.log('SQL error in tasks/ DELETE handler', err);
+        res.sendStatus(500);
+    });
+})
+
 
 // END http request handlers.
 
