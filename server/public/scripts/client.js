@@ -9,7 +9,7 @@ $(() => {
     // Complete task button handler.
     $('#taskTable').on('click', '.doItButton', doIt);
     // Delete task button handler.
-
+    $('#taskTable').on('click', '.deleteItem', delete);
     // END Click handlers
 
     // Preperations for page load.
