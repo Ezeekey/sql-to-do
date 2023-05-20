@@ -7,7 +7,7 @@ $(() => {
     // Add task click handler.
     $('#addTask').on('click', addTaskButton);
     // Complete task button handler.
-
+    $('#taskTable').on('click', '.doItButton', doIt);
     // Delete task button handler.
 
     // END Click handlers
@@ -71,18 +71,35 @@ function appendToTable(item) { // Should be an object {id, name, done, timestamp
     let check = '';
     // String for constructor, it gets blanked out if the item is complete signaling it is done.
     let doItButtonConstructor = '<button class="doItButton">Done</button>';
+    // String for constructor of done class.
+    let doneConstructor = '';
     if (item.done === true) {
         // Modifications for already complete items.
         check = '✔️';
         doItButtonConstructor = '';
+        doneConstructor = 'class="done"';
     }
 
     $('#taskTable').append(`
-    <tr data-id="${item.id}">
+    <tr ${doneConstructor} data-id="${item.id}">
         <td>${check}</td>
         <td>${item.name}</td>
         <td>${item.timestamp}</td>
         <td>${doItButtonConstructor}</td>
         <td><button class="deleteItem">Remove</button></td>
     </tr>`);
+}
+
+
+function doIt(event) {
+    // Calling server to PUT to database.
+    $.ajax({
+        method: 'PUT',
+        url: '/task/' + $(event.target).closest('tr').data('id')
+    }).then(response => {
+        // Display new table to show modifications.
+        callDisplay();
+    }).catch(err => {
+        alert('Error doing it!');
+    })
 }
