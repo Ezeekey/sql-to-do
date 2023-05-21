@@ -13,8 +13,10 @@ const moment = require('moment');
 
 // GET request for sending tasks back to user to display.
 router.get('/', (req, res) => {
+    let ascOrDesc = 'ASC';
+    req.query.reverse === 'true' ? ascOrDesc='DESC' : ascOrDesc='ASC';
     // Asking database to give a list of task objects {id, name, done, timestamp} to client.
-    pool.query('SELECT * FROM "tasks" ORDER BY "done"').then(response => {
+    pool.query('SELECT * FROM "tasks" ORDER BY "done" ' + ascOrDesc + ';').then(response => {
         // Turning dates into something human readable.
         for (let task of response.rows) {
             task.timestamp = moment(task.timestamp).format('MMMM Do YYYY, h:mm:ss a');

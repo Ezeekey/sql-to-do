@@ -9,6 +9,10 @@ app.use(express.urlencoded({extended: true}));
 // Setting static folder.
 app.use(express.static('server/public'));
 
+// Getting query parser
+//const qs = require('qs');
+
+
 // Getting routers.
 const taskRouter = require('./routers/task.js');
 app.use('/task', taskRouter);
