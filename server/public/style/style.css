@@ -1,6 +1,9 @@
 body, html {
     height: 100%;
     width: 100%;
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 15px;
 }
 
 body {
@@ -62,4 +65,8 @@ table {
 .done {
     text-decoration: line-through;
     background-color: aquamarine;
+}
+
+header {
+    text-align: center;
 }
