@@ -14,6 +14,9 @@ const quotes = [
 
 const selectedQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
+// Variable to hold which direction the sort should be.
+let reverse = false;
+
 // Activate jQuery
 $(() => {
     console.log('JQ JS');
@@ -26,6 +29,9 @@ $(() => {
     $('#taskTable').on('click', '.doItButton', doIt);
     // Delete task button handler.
     $('#taskTable').on('click', '.deleteItem', removeTask);
+    // Click handler for reverse sort button.
+    $('#reverseButton').on('click', changeSort)
+
     // END Click handlers
 
     // Preperations for page load.
@@ -72,7 +78,7 @@ function callDisplay() {
     $.ajax({
         method: 'GET',
         url: '/task',
-
+        data: {reverse}
     }).then(response => {
         // Empty list before appendation.
         $('#taskTable').empty();
@@ -152,6 +158,12 @@ function removeTask(event) {
             swal('Well fine then!');
         }
     })
+}
 
-
+function changeSort() {
+    // Changes reverse to the opposite of what it is, and changes text in button to what is appropriate.
+    reverse = !reverse;
+    reverse === true ? $('#reverseButton').text('Reverse') : $('#reverseButton').text('Forward');
+    // Refresh display.
+    callDisplay();
 }
