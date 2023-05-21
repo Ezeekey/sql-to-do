@@ -70,7 +70,7 @@ function appendToTable(item) { // Should be an object {id, name, done, timestamp
     // Variable holds string that, if item is complete, displays a checkmark emoji.
     let check = '';
     // String for constructor, it gets blanked out if the item is complete signaling it is done.
-    let doItButtonConstructor = '<button class="doItButton">Done</button>';
+    let doItButtonConstructor = '<button class="doItButton  btn btn-success">Done</button>';
     // String for constructor of done class.
     let doneConstructor = '';
     // String for important spinny feature for complete tasks.
@@ -89,7 +89,7 @@ function appendToTable(item) { // Should be an object {id, name, done, timestamp
         <td>${item.name}</td>
         <td>${item.timestamp}</td>
         <td>${doItButtonConstructor}</td>
-        <td><button class="deleteItem">Remove</button></td>
+        <td><button class="deleteItem btn btn-danger">Remove</button></td>
     </tr>`);
 }
 
@@ -109,14 +109,30 @@ function doIt(event) {
 
 
 function removeTask(event) {
-    // Calling server to DELETE from database.
-    $.ajax({
-        method: 'DELETE',
-        url: '/task/' + $(event.target).closest('tr').data('id')
-    }).then(response => {
-        // Display new table to show modifications.
-        callDisplay();
-    }).catch(err => {
-        alert('Error doing it!');
+    // Summoning an alert to delete your task.
+    swal({
+        title: 'Sure about that?',
+        text: 'Are you sure you want to remove this task from the list?',
+        icon: 'warning',
+        buttons: true,
+        dangermode: true
+    }).then(willDelete => {
+        if (willDelete) {
+            // Calling server to DELETE from database.
+            $.ajax({
+                method: 'DELETE',
+                url: '/task/' + $(event.target).closest('tr').data('id')
+            }).then(response => {
+                // Display new table to show modifications.
+                swal('Conglaturations! You don\'t need to do this anymore!');
+                callDisplay();
+            }).catch(err => {
+                alert('Error doing it!');
+            })
+        } else {
+            swal('Well fine then!');
+        }
     })
+
+
 }

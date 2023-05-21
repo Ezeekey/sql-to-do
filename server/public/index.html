@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style/style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./vendors/jquery.js"></script>
     <script src="./vendors/validator.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
@@ -23,8 +24,8 @@
         </header>
         <section>
             <label name="name">New task name</label>
-            <input type="text" name="name" placeholder="Enter name here" id="nameIn">
-            <button id="addTask">Add task</button>
+            <input type="text" name="name" placeholder="Enter name here" id="nameIn" class="form-control">
+            <button id="addTask" class="btn btn-success">Add task</button>
         </section>
         <section>
             <table>

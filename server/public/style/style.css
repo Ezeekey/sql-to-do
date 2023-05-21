@@ -38,6 +38,7 @@ td button {
 
 tr {
     border-style: solid;
+    border-width: 2px;
 }
 
 table {
@@ -56,4 +57,9 @@ table {
     } 100% {
         transform: rotateY(360deg);
     }
+}
+
+.done {
+    text-decoration: line-through;
+    background-color: aquamarine;
 }
