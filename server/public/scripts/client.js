@@ -73,16 +73,19 @@ function appendToTable(item) { // Should be an object {id, name, done, timestamp
     let doItButtonConstructor = '<button class="doItButton">Done</button>';
     // String for constructor of done class.
     let doneConstructor = '';
+    // String for important spinny feature for complete tasks.
+    let spinnyConstructor = '';
     if (item.done === true) {
         // Modifications for already complete items.
         check = '✔️';
         doItButtonConstructor = '';
         doneConstructor = 'class="done"';
+        spinnyConstructor = 'class="spinnyCheck"'
     }
 
     $('#taskTable').append(`
     <tr ${doneConstructor} data-id="${item.id}">
-        <td>${check}</td>
+        <td ${spinnyConstructor}>${check}</td>
         <td>${item.name}</td>
         <td>${item.timestamp}</td>
         <td>${doItButtonConstructor}</td>
