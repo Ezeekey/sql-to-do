@@ -4,6 +4,8 @@ body, html {
 
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 15px;
+
+    background-color: azure;
 }
 
 body {
@@ -13,7 +15,7 @@ body {
 }
 
 main {
-    background-color: azure;
+    
     flex: 1 0 auto;
 }
 
@@ -24,10 +26,12 @@ footer {
     text-align: center;
     
     font-style: italic;
+
+    background-color: white;
 }
 
 section {
-    width: 60%;
+    width: 100%;
     margin: 0px auto 0px;
 }
 
