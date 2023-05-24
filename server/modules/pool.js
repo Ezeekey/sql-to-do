@@ -1,15 +1,26 @@
 // Importing pg.
 const pg = require('pg');
 
+let config = {};
+
+if (process.env.DATABASE_URL) {
+    config = {
+        connectionString: process.env.DATABASE_URL,
+        ssl: true
+    };
+} else {
+    config = {
+        database: 'weekend-to-do-app',
+        host: 'localhost',
+        port: 5432,
+        max: 10,
+        idleTimeOutMillis: 30000
+    };
+}
+
 // Initializing a pool to reach database.
 const Pool = pg.Pool;
-const pool = new Pool({
-    database: 'weekend-to-do-app',
-    host: 'localhost',
-    port: 5432,
-    max: 10,
-    idleTimeOutMillis: 30000
-});
+const pool = new Pool(config);
 
 // Printing status of server.
 pool.on('connect', () => {
